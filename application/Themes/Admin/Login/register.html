@@ -1,0 +1,108 @@
+<!-- <include file="../../public/header.html"/> -->
+<!DOCTYPE html>
+<head>
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>五粮果</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../../Public/CSS/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        .form_center{
+            position: relative;
+            top:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form_center">
+    	<div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">注册</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" id="form_data" method="POST">
+                                <fieldset>
+                                    <div class="control-group">
+                                        <label class="control-label">手机号码</label>
+                                            <div class="controls">
+                                                <input 
+                                                    class="form-control"
+                                                    placeholder="请输入手机号码"
+                                                   type="text" name="mobilephone"
+                                                   data-validation-regex-regex= "^(1[0-9][0-9]|14[0-9]|15[0-9]|18[0-9]|17[0-9])[0-9]{8}$" 
+                                                   data-validation-regex-message="请输入有效的手机号码" 
+                                                />
+                                                <p class="help-block"></p>
+                                            </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>密码</label>
+                                        <input class="form-control" placeholder="请输入密码" id="password" name="password" type="password" value="">
+                                        <p class="help-block"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>确认密码</label>
+                                        <input class="form-control" placeholder="请重复密码" id="repassword" name="repassword" type="password" data-validation-match-match="password" value="">
+                                    </div>
+                                     <div class="form-group">
+                                        <label>昵称</label>
+                                        <input class="form-control" placeholder="请输入密码" name="text" type="text" value="">
+                                        <p class="help-block"></p>
+                                    </div>
+                                    <input class="form-control" placeholder="请输入验证码" id="verify" name="verify" type="text" style="width:50%">
+                                    <div><img alt="验证码" src="{:U('')}" onClick="this.src=this.src+'?'+Math.random()" title="点击刷新"></div>
+                                    <div>
+                                        <div class="form-group">
+                                                <label>用户类型:</label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="user_type" id="person" value="person" checked>后台
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="user_type" id="company" value="company">供货商
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="user_type" id="company" value="company">个人
+                                                </label>
+                                        </div>
+                                    </div>
+                                   
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <input name="send" type="submit" value="注册" class="btn btn-success btn-block" onclick="register();" />
+                                    <a type="button" class="btn btn-link" style="float:right;" href="login.html">返回登录</a>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="../../Public/common.js"></script>
+<script type="text/javascript">
+    function register(){
+        sendForm("form_data","{:U('')}");
+    }
+    function login(){
+        sendForm("form_data","{:U('login')}");
+    }
+    $(document).ready(function(){
+       var phone = get_cookie('phone');
+        console.log(phone);
+    })
+</script>
+   <!--前端验证-->
+<script>
+     $(function () { $("input").not("[type=submit]").jqBootstrapValidation(); } );
+</script>
+</body>
+</html>
