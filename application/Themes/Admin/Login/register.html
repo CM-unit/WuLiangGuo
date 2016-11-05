@@ -12,6 +12,9 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="../../../Public/CSS/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../Public/js/jquery.js"></script>
+    <script src="../Public/js/bootstrap.min.js"></script>
+    <script src="../Public/common.js"></script>
     <style type="text/css">
         .form_center{
             position: relative;
@@ -87,13 +90,11 @@
             </div>
         </div>
     </div>
-<script src="../../Public/common.js"></script>
+
 <script type="text/javascript">
     function register(){
+        console.log("注册");
         sendForm("form_data","{:U('')}");
-    }
-    function login(){
-        sendForm("form_data","{:U('login')}");
     }
     $(document).ready(function(){
        var phone = get_cookie('phone');
