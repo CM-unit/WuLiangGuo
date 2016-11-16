@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>用户——产品</title>
+    <link rel="stylesheet" href="../Public/css/main.css?v=1" type="text/css">
+    <link href="../Public/css/bootstrap.css"  rel="stylesheet">
+    <link rel="stylesheet" href="../Public/css/bootstrap-table.css">
+    <link href="../Public/css/nav_tab.css"  rel="stylesheet">
+</head>
+<body>
+    <header id="header" class="header header--fixed hide-from-print" role="banner">
+        <div class="container" >
+            <nav id="nav" class="nav-wrapper" role="navigation" style="float:left">  
+                <a href="#" class="brand header__link">
+                    <img src="shop.jpg" class="img-circle">
+                    <b class="brand__forename">userName</b>
+                </a>   
+                <a class="header__link subdued" href="userGood.html" style="position: relative;left:60%">
+                    <span aria-hidden="true" class="icon icon--github"></span>
+                    <span class="complimentary push--left">货物</span>
+                </a>                
+                <a class="header__link subdued" href="userOrder.html" style="position: relative;left:80%">
+                    <span aria-hidden="true" class="icon icon--twitter"></span>
+                    <span class="complimentary push--left">订单</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <div class="col-lg-13">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Primary Panel
+            </div>
+            <br/>
+            <div class="panel-body">
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#lA" data-toggle="tab">板栗</a></li>
+                        <li><a href="#lB" data-toggle="tab">红薯</a></li>
+                        <li><a href="#lC" data-toggle="tab">大米</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane in active" id="lA">
+                            <div class="col-lg-12">
+                                <div id="toolbar" class="btn-group">
+                                    <button id="btn_delivery" type="button" class="btn btn-default">
+                                        <span class="fa fa-check" aria-hidden="true">去购物车结算</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- <div class="row"> -->
+                            <div class="container-fluid">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <!--without js-->
+                                        <table 
+                                            data-pagination="true"
+                                            data-search="true"
+                                            data-show-refresh="true"
+                                            data-show-toggle="true"
+                                            data-show-columns="true"
+                                            data-query-params="queryParams"
+                                            data-response-handler="responseHandler"
+                                            data-toggle="table"
+                                            id="table"
+                                            data-toolbar="#toolbar"
+                                            class="table table-bordered"
+                                            data-click-to-select="true">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th data-field="state" data-checkbox="true"></th> -->
+                                                    <th data-field="id" id="priceFormatter">供货商</th>
+                                                    <th data-field="name">单价</th>
+                                                    <th data-field="departUserInfo">库存</th>
+                                                    <th data-field="text">描述</th>
+                                                    <th data-field="operate" data-editable="true">加入购物车</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <foreach name="good" item="v">
+                                                <tr>
+                                                    <td><button class="btn btn-link" data-toggle="modal" data-target="#myModal" ><input value="{$v.shopNo}" style="display:none;"></input>{$v.shopNo}{$v.shopName}</button></td><!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">{$v.shopNo}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                             <div class="thumbnails">
+                                                    
+                                                        <a class="thumbnail">
+                                                            <h3>名称：留庄大米</h3>
+                                                            <h4>售价：￥18 rmb/kg</h4>
+                                                            <h4>存货：20 t</h4>
+                                                            <h4>地址：河南驻马店</h4>
+                                                            <div class="caption">
+                                                                <h3>供货商01</h3>
+                                                                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;留庄镇位于县城的东南，盛产大米远近闻名，全镇种植水稻面积达 15000 余亩，水稻种植最集中的有 5 个村， 其中汪庄村有水稻 3000 亩。水稻平均亩产1000 斤，出米率约 70% 。大米的市场另售价可达每公斤 2.90 元。</p>
+                                                            </div> 
+                                                        </a>    
+                                                    </div>
+                                                    <a href="#" class="thumbnail">
+                                                      <img src="大米.jpg" alt="">
+                                                    </a>
+                                            </div> 
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                                                    <td>{$v.price}/kg</td>
+                                                    <td>{$v.sum}/t</td>
+                                                    <td>特点</td>
+                                                    <td><input ></input>t</td>
+                                                </tr>
+                                                </foreach>
+                                            </tbody>
+                                        </table>
+                                        <div class="row-fluid">
+                                            <div class="span3"></div>
+                                            <div class="span9"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.container-fluid-->
+                            <!-- </div> --><!-- /.row -->
+                        </div>
+                        <div class="tab-pane" id="lB">
+                          <p>Howdy, I'm in Section B.</p>
+                        </div>
+                        <div class="tab-pane" id="lC">
+                          <p>What up girl, this is Section C.</p>
+                        </div>
+                    </div>
+                </div> <!-- /tabbable -->
+            </div>
+            <div class="panel-footer">
+                Panel Footer
+            </div>
+        </div>
+    </div>
+
+    <a class="btt btn btn--plain hide-from-print" href="#" id="btt">Top <i class="icon icon--up"></i></a>
+    <script src="../Public/js/jquery.js"></script>
+    <script src="../Public/js/bootstrap.min.js"></script>
+    <script src="../Public/js/main.js?v=1"></script>
+    <script src="../Public/js/bootstrap-table.min.js"></script>
+<script>
+(function() {
+    var header = new Headroom(document.querySelector("#header"), {
+        tolerance: 5,
+        offset : 205,
+        classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+        }
+    });
+    header.init();
+
+    var bttHeadroom = new Headroom(document.getElementById("btt"), {
+        tolerance : 0,
+        offset : 500,
+        classes : {
+            initial : "slide",
+            pinned : "slide--reset",
+            unpinned : "slide--down"
+        }
+    });
+    bttHeadroom.init();
+}());
+</script>
+
+</body>
+</html>

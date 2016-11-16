@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>用户——订单</title>
+    <link rel="stylesheet" href="../Public/css/main.css?v=1" type="text/css">
+    <link href="../Public/css/bootstrap.css"  rel="stylesheet">
+    <link rel="stylesheet" href="../Public/css/bootstrap-table.css">
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="page-wrapper">
+		<header id="header" class="header header--fixed hide-from-print" role="banner">
+	        <div class="container" >
+	            <nav id="nav" class="nav-wrapper" role="navigation" style="float:left">  
+	                <a href="#" class="brand header__link">
+	                    <img src="../Public/img/shop.jpg" class="img-circle">
+	                    <b class="brand__forename">userName</b>
+	                </a>   
+	                <a class="header__link subdued" href="userGood.html" style="position: relative;left:60%">
+	                    <span aria-hidden="true" class="icon icon--github"></span>
+	                    <span class="complimentary push--left">货物</span>
+	                </a>                
+	                <a class="header__link subdued" href="userOrder.html" style="position: relative;left:80%">
+	                    <span aria-hidden="true" class="icon icon--twitter"></span>
+	                    <span class="complimentary push--left">订单</span>
+	                </a>
+	            </nav>
+	        </div>
+	    </header>
+	    <div class="col-lg-12">
+			<div class="row">
+				<div class="col-lg-10">
+					<br/><br/>
+					<h1 class="page-header">我的订单</h1>
+				</div>
+				<div class="col-lg-12">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#wait" data-toggle="tab">待发货</a>
+						</li>
+						<li>
+							<a href="#onroad" data-toggle="tab">待收货</a>
+						</li>
+						<li>
+							<a href="#done" data-toggle="tab">已完成</a>
+						</li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="wait">
+							<div class="row">
+								<div class="container-fluid">
+									<div class="row-fluid">
+										<div class="span12">
+											<!--without js-->
+											<table 
+												 data-pagination="true"
+										         data-search="true"
+												 data-show-refresh="true"
+										         data-show-toggle="true"
+										         data-show-columns="true"
+										         data-query-params="queryParams"
+										         data-response-handler="responseHandler"
+												 data-toggle="table"
+												 id="waitTable"
+												 data-toolbar="#toolbar1"
+												 class="table table-bordered"
+												 data-click-to-select="true"
+										        >
+												<thead>
+													<tr>
+														<th data-field="id" id="priceFormatter">订单号/时间</th>
+														<th data-field="name">货物(价格)</th>
+														<th data-field="departUserInfo">联系人/配送地址</th>
+														<th data-field="orderIssuseName">下单人/总金额</th>
+														<th data-field="text">备注</th>
+														<!-- <th data-field="operate">操作</th>
+													-->
+													</tr>
+												</thead>
+												<tbody>
+													<foreach name="waitOrders" item="v">
+													<tr>
+														<td>{$v.orderno}{$v.orderTime}</td>
+														<td>{$v.orderType}{$v.orderMoney}</td>
+														<td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+														<td>{$v.orderPerson}{$v.orderSum}</td>
+														<td>{$v.orderText}</td>
+													</tr>
+													</foreach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div><!-- /.container-fluid-->
+							</div><!-- /.row -->
+						</div><!-- /.wait -->
+						<div class="tab-pane fade" id="onroad">
+							<div class="row">
+								<div class="container-fluid">
+									<div class="row-fluid">
+										<div class="span12">
+											<!--without js-->
+											<div class="col-lg-12">
+												<div id="toolbar2" class="btn-group" style="{.margin-bottom:20px;}">
+													<button id="btn_done" type="button" class="btn btn-default">
+														<span class="fa fa-check" aria-hidden="true">确认收货</span>
+													</button>
+												</div>
+											</div><!--/.toolbar-->
+											<table 
+												data-pagination="true"
+										        data-search="true"
+												data-show-refresh="true"
+										        data-show-toggle="true"
+										        data-show-columns="true"
+										        data-query-params="queryParams"
+										        data-response-handler="responseHandler"
+												data-toggle="table"
+												id="onroadTable"
+												data-toolbar="#toolbar2"
+												class="table table-bordered"
+												data-click-to-select="true">
+												<thead>
+													<tr>
+														<th data-field="state" data-checkbox="true"></th>
+														<th data-field="id" id="priceFormatter">订单号/时间</th>
+														<th data-field="name">货物(价格)</th>
+														<th data-field="departUserInfo">联系人/配送地址</th>
+														<th data-field="orderIssuseName">下单人/总金额</th>
+														<th data-field="text">备注</th>
+													</tr>
+												</thead>
+												<tbody>
+													<foreach name="onroadOrder" item="v">
+													<tr>
+														<td></td>
+														<td>{$v.orderno}{$v.orderTime}</td>
+														<td>{$v.orderType}{$v.orderMoney}</td>
+														<td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+														<td>{$v.orderPerson}{$v.orderSum}</td>
+														<td>{$v.orderText}</td>
+													</tr>
+													</foreach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div><!-- /.container-fluid-->
+							</div><!-- /.row -->
+						</div>
+						<div class="tab-pane fade" id="done">
+							<div class="row">
+								<div class="container-fluid">
+									<div class="row-fluid">
+										<div class="span12">
+											<!--without js-->
+											<table 
+												data-pagination="true"
+										        data-search="true"
+												data-show-refresh="true"
+										        data-show-toggle="true"
+										        data-show-columns="true"
+										        data-query-params="queryParams"
+										        data-response-handler="responseHandler"
+												data-toggle="table"
+												id="doneTable"
+												data-toolbar="#toolbar3"
+												class="table table-bordered"
+												data-click-to-select="true">
+												<thead>
+													<tr>
+														<th data-field="state" data-checkbox="true"></th>
+														<th data-field="id" id="priceFormatter">订单号/时间</th>
+														<th data-field="name">货物(价格)</th>
+														<th data-field="departUserInfo">联系人/配送地址</th>
+														<th data-field="orderIssuseName">下单人/总金额</th>
+														<th data-field="text">备注</th>
+														<th data-field="comment">评价</th>
+													</tr>
+												</thead>
+												<tbody>
+													<foreach name="doneOrder" item="v">
+													<tr>
+														<td></td>
+														<td>{$v.orderno}{$v.orderTime}</td>
+														<td>{$v.orderType}{$v.orderMoney}</td>
+														<td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+														<td>{$v.orderPerson}{$v.orderSum}</td>
+														<td>{$v.orderText}</td>
+														<td><button class="btn btn-link" data-toggle="modal" data-target="#myModal" >{$v.orderState}</button></td>						
+															<!-- 评价模态框（Modal） -->
+																<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+																   aria-labelledby="myModalLabel" aria-hidden="true">
+																    <div class="modal-dialog">
+																        <div class="modal-content">
+																        	<div class="modal-header">
+																	            <button type="button" class="close" 
+																	               data-dismiss="modal" aria-hidden="true">
+																	                  &times;
+																	            </button>
+																	            <h4 class="modal-title" id="myModalLabel">
+																	               
+																	            </h4>
+																        	</div>
+																	        <div class="modal-body">
+					<form id="form_data" enctype="multipart/form-data" method="post">
+						<div class="row">
+							<div class="col-lg-12" >
+                                <div class="form-group">
+                                  	<div class="col-lg-4" style="float:left:">
+                                    	<div id="precision-demo" class="target-demo" ></div>
+                                	</div>
+									<!-- <div id="precision-hint" class="hint" style="float:right:"></div> -->
+									<div class="col-lg-4" style="float:right:">
+										<input id="precision-hint" class="hint" readonly>
+									</div>
+                                </div>
+								<script type="text/javascript">
+									$('#precision-demo').raty({
+								        path      : '../Public/img/',
+								        cancelOff : 'cancel-off-big.png',
+								        cancelOn  : 'cancel-on-big.png',
+								        size      : 24,
+								        starHalf  : '../Public/img/star-half-big.png',
+								        starOff   : '../Public/img/star-off-big.png',
+								        starOn    : '../Public/img/star-on-big.png',
+								        target    : '#precision-hint',
+								        cancel    : true,
+								        targetKeep: true,
+								        precision : true
+								      });
+								</script>
+                                <div class="form-group required">
+                                       <br> <h4>评价内容</h4>
+                                        <textarea class="form-control" placeholder="请输入评价内容" rows="7" name="content" id="TXT"></textarea>
+                                </div>
+							</div>
+						</div>
+                    </form>
+																	        </div>
+																	        <div class="modal-footer">
+																	            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+																	        </div>
+																	    </div><!-- /.modal-content -->
+																	</div>
+																</div><!-- /.modal -->		
+															<script type="text/javascript">
+															  function col{$v.orderNo}(){
+															  	 console.log({$v.orderState});
+															  if({$v.orderState} =='0'){
+															      $("#yes{$v.orderNo}").hide();
+															    }else  $("#no{$v.orderNo}").hide();
+															  }
+															  setTimeout("col{$v.orderNo}()",500);
+															</script>												
+																												
+													</tr>
+													</foreach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div><!-- /.container-fluid-->
+							</div><!-- /.row -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- /#page-wrapper -->
+</div><!-- /#wrapper -->
+
+<a class="btt btn btn--plain hide-from-print" href="#" id="btt">Top <i class="icon icon--up"></i></a>
+    <script src="../Public/js/jquery.js"></script>
+    <script src="../Public/js/bootstrap.min.js"></script>
+    <script src="../Public/js/main.js?v=1"></script>
+    <script src="../Public/js/bootstrap-table.min.js"></script>
+    <script src="../Public/js/common.js"></script>
+<script>
+	(function() {
+	    var header = new Headroom(document.querySelector("#header"), {
+	        tolerance: 5,
+	        offset : 205,
+	        classes: {
+	          initial: "animated",
+	          pinned: "slideDown",
+	          unpinned: "slideUp"
+	        }
+	    });
+	    header.init();
+
+	    var bttHeadroom = new Headroom(document.getElementById("btt"), {
+	        tolerance : 0,
+	        offset : 500,
+	        classes : {
+	            initial : "slide",
+	            pinned : "slide--reset",
+	            unpinned : "slide--down"
+	        }
+	    });
+	    bttHeadroom.init();
+	}());
+</script>
+
+<script type="text/javascript">
+	var wait_index_url ="{:U('')}";
+	var wait_delect_url = "{:U('')}";
+	var wait_delivery_url = "{:U('')}";
+	var onroad_comfirm_url = "{:U('')}";
+	var onroad_state_url = "{:U('')}";
+	var done_delete_url = "{:U('')}";
+	var comment_url = "{:U('')}";
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		/**
+	 	* Wait Tbale
+	 	* 删除 确认发货
+	 	*/
+		var $wait_table = $('#wait_table'),
+	    $wait_btn_delete = $('#btn_delete'),
+	    $wait_btn_delivery = $('#btn_delivery');
+
+	    $wait_btn_delete.click(function () {
+	    	var confirm_order = confirm("确认取消？");
+    		if(confirm_order){
+		    	send(wait_delect_url);
+		    	console.log('delete');
+	    	}
+	    });
+	    $wait_btn_delivery.click(function(){
+	    	var confirm_order = confirm("确认已发货？");
+    		if(confirm_order){
+		    	send(wait_delivery_url);
+		    	console.log('delivery');
+	    	}
+	    });
+	    function send(url){
+	    	var ids = init_remove();
+	    	var post_data="";
+	    	for (var i = ids.length - 1; i >= 0; i--) {
+	    		post_data += '&'+ i +'='+ ids[i];
+	    	}
+	    	// sendAjax(url,ids);
+	    	//url=
+	    	$.ajax({
+				type : "POST",
+				url : url,
+				data : post_data,
+				dataType : "json",
+				success : function(data) {
+					console(data);
+					if (data.status) {
+						ui_alert(data.info, function() {
+							if (return_url) {
+								location.href = return_url;
+							}
+						});
+					} else {
+						ui_error(data.info);
+					}
+				}
+			});
+
+	    }
+	    /**
+	     * 从前端列表中移除
+	     */
+	    function init_remove(){
+	        var ids = $.map($wait_table.bootstrapTable('getSelections'), function (row) {
+	            return row.id;
+	        });
+	        $wait_table.bootstrapTable('remove', {
+	            field: 'id',
+	            values: ids
+	        });
+	        return ids;
+	    }
+	    /**
+	 	* Onroad Tbale
+	 	* 确认收货 查看行车状态
+	 	*/
+	 	var $onroad_table = $('#onroad_table'),
+	    $onroad_btn_done = $('#btn_done'),
+	    $onroad_btn_state = $('#btn_state');
+
+	    $onroad_btn_done.click(function () {
+	    	var confirm_order = confirm("确认已收货？");
+    		if(confirm_order){
+		    	onroad_send(onroad_comfirm_url);
+		    	console.log('done');
+		    }
+	    });
+
+	    $onroad_btn_state.click(function(){
+	    	window.location.href=onroad_state_url;
+	    	console.log('state');
+	    });
+
+	    function onroad_send(url){
+	    	var ids = onroad_init_remove();
+	    	var post_data="";
+	    	for (var i = ids.length - 1; i >= 0; i--) {
+	    		post_data += '&'+ i +'='+ ids[i];
+	    	}
+	    	// sendAjax(url,ids);
+	    	$.ajax({
+				type : "POST",
+				url : url,
+				data : post_data,
+				dataType : "json",
+				success : function(data) {
+					console(data);
+					if (data.status) {
+						ui_alert(data.info, function() {
+							if (return_url) {
+								location.href = return_url;
+							}
+						});
+					} else {
+						ui_error(data.info);
+					}
+				}
+			});
+	    }	
+	    /**
+	     * 从前端列表中移除
+	     */
+	    function onroad_init_remove(){
+	        var ids = $.map($onroad_table.bootstrapTable('getSelections'), function (row) {
+	            return row.id;
+	        });
+	        $onroad_table.bootstrapTable('remove', {
+	            field: 'id',
+	            values: ids
+	        });
+	        return ids;
+	    }
+	    /*
+	     * Done table
+	     * 已完成订单
+	     */
+	    var $done_table = $('#done_table'),
+	    $btn_done_delete = $('#btn_done_delete');
+	    
+	    $btn_done_delete.click(function(){
+	    	var confirm_order = confirm("确认删除？");
+    		if(confirm_order){
+	    		done_send(done_delete_url);
+	    		console.log('done_delete');
+	    	}
+	    });
+	    function done_send(url){
+	    	var ids = done_init_remove();
+	    	var post_data="";
+	    	for (var i = ids.length - 1; i >= 0; i--) {
+	    		post_data += '&'+ i +'='+ ids[i];
+	    	}
+	    	// sendAjax(url,ids);
+	    	$.ajax({
+				type : "POST",
+				url : url,
+				data : post_data,
+				dataType : "json",
+				success : function(data) {
+					console(data);
+					if (data.status) {
+						ui_alert(data.info, function() {
+							if (return_url) {
+								location.href = return_url;
+							}
+						});
+					} else {
+						ui_error(data.info);
+					}
+				}
+			});
+	    }
+	    function done_init_remove(){
+	        var ids = $.map($done_table.bootstrapTable('getSelections'), function (row) {
+	            return row.id;
+	        });
+	        $done_table.bootstrapTable('remove', {
+	            field: 'id',
+	            values: ids
+	        });
+	        return ids;
+	    }
+	});
+
+	var orderid;
+	/**
+	 * 评价
+	 * @param  订单id
+	 */
+	function comment(id){
+		console.log(id);
+		if(id!==""){
+			orderid = id;
+		}
+	}
+	/**
+	 * 保存评价
+	 */
+	function savecomment(id){
+        var confirm_comment = confirm("保存评价？");
+        
+		var star=  document.getElementById('precision-hint').value;
+        console.log(star);
+	    var vars ;
+	    vars = '&orderid=' + id + '&mark=' + star + '&comment=' + document.getElementById('TXT').value;
+	    console.log(vars);
+		var post_url = "{:U('order/comment/save_comment')}";
+		if(confirm_comment){
+			$.ajax({
+				type:"post",
+				url : post_url,
+				data : vars,
+				dataType : "json",
+				async:true,
+				success : function(data) {
+					console(data);
+					if (data.status) {
+						ui_alert(data.info, function() {
+							if (return_url) {
+								location.href = return_url;
+							}
+						});
+					} else {
+						ui_error(data.info);
+					}
+				}
+			});
+		}
+	}
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>供货商——订单</title>
+    <link rel="stylesheet" href="../Public/css/main.css?v=1" type="text/css">
+    <link href="../Public/css/bootstrap.css"  rel="stylesheet">
+    <link rel="stylesheet" href="../Public/css/bootstrap-table.css">
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="page-wrapper">
+		<header id="header" class="header header--fixed hide-from-print" role="banner">
+	        <div class="container" >
+	            <nav id="nav" class="nav-wrapper" role="navigation" style="float:left">  
+	                <a href="#" class="brand header__link">
+	                    <img src="../Public/img/shop.jpg" class="img-circle">
+	                    <b class="brand__forename">shopName</b>
+	                </a>   
+	                <a class="header__link subdued" href="shopGood.html" style="position: relative;left:60%">
+	                    <span aria-hidden="true" class="icon icon--github"></span>
+	                    <span class="complimentary push--left">货物</span>
+	                </a>                
+	                <a class="header__link subdued" href="shopOrder.html" style="position: relative;left:80%">
+	                    <span aria-hidden="true" class="icon icon--twitter"></span>
+	                    <span class="complimentary push--left">订单</span>
+	                </a>
+	            </nav>
+	        </div>
+	    </header>
+	    <div class="col-lg-12">
+			<div class="row">
+				<div class="col-lg-10">
+					<br/><br/>
+					<h1 class="page-header">我的订单</h1>
+				</div>
+				<div class="col-lg-12">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#wait" data-toggle="tab">待发货</a>
+						</li>
+						<li>
+							<a href="#onroad" data-toggle="tab">待收货</a>
+						</li>
+						<li>
+							<a href="#done" data-toggle="tab">已完成</a>
+						</li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="wait">
+							<div class="row">
+								<div class="col-lg-12">
+									<div id="toolbar1" class="btn-group" style="{.marge-bottom:20px;}">
+										<button id="deliverOrder" class="btn btn-default">
+											<span class="fa fa-check" aria-hidden="true">确认发货</span>
+										</button>
+
+										<button id="deleteOrder" class="btn btn-default">
+											<span class="fa fa-times" aria-hidden="true">取消订单</span>
+										</button>
+									</div>
+								</div>
+								<div class="container-fluid">
+									<div class="row-fluid">
+										<div class="span12">
+											<!--without js-->
+											<table 
+												 data-pagination="true"
+										         data-search="true"
+												 data-show-refresh="true"
+										         data-show-toggle="true"
+										         data-show-columns="true"
+										         data-query-params="queryParams"
+										         data-response-handler="responseHandler"
+												 data-toggle="table"
+												 id="waitTable"
+												 data-toolbar="#toolbar1"
+												 class="table table-bordered"
+												 data-click-to-select="true">
+												<thead>
+													<tr>
+														<th data-field="state" data-checkbox="true"></th>
+														<th data-field="orderNo" id="priceFormatter">订单号/时间</th>
+														<th data-field="goodName">货物(价格)</th>
+														<th data-field="contactPerson">联系人/配送地址</th>
+														<th data-field="userNo">下单人/总金额</th>
+														<th data-field="orderText">备注</th>
+														<!-- <th data-field="operate">操作</th>
+													-->
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+													<foreach name="waitOrder" item="v">
+														<td></td>
+														<td>{$v.orderNo}</td>
+														<td>{$v.orderType}{$v.orderMoney}</td>
+														<td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+														<td>{$v.orderPerson}{$v.orderSum}</td>
+														<td>{$v.orderTime}{$v.orderText}</td>
+													</foreach>					
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div><!-- /.container-fluid-->
+							</div><!-- /.row -->
+						</div><!-- /.wait -->
+						<div class="tab-pane fade" id="onroad">
+							<div class="row">
+								<div class="container-fluid">
+									<div class="row-fluid">
+										<div class="span12">
+											<!--without js-->
+											<table 
+												data-pagination="true"
+										        data-search="true"
+												data-show-refresh="true"
+										        data-show-toggle="true"
+										        data-show-columns="true"
+										        data-query-params="queryParams"
+										        data-response-handler="responseHandler"
+												data-toggle="table"
+												id="onroadTable"
+												data-toolbar="#toolbar2"
+												class="table table-bordered"
+												data-click-to-select="true">
+												<thead>
+													<tr>
+														<th data-field="state" data-checkbox="true"></th>
+														<th data-field="orderNo">订单号/时间</th>
+														<th data-field="goodName">货物(价格)</th>
+														<th data-field="contactPerson">联系人/配送地址</th>
+														<th data-field="userNo">下单人/总金额</th>
+														<th data-field="orderText">备注</th>
+													</tr>
+												</thead>
+												<tbody>
+													<foreach name="onroadOrder" item="v">
+													<tr>
+														<td></td>
+														<td>{$v.orderNo}</td>
+														<td>{$v.orderType}{$v.orderMoney}</td>
+														<td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+														<td>{$v.orderPerson}{$v.orderSum}</td>
+														<td>{$v.orderTime}{$v.orderText}</td>
+													</tr>
+													</foreach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div><!-- /.container-fluid-->
+							</div><!-- /.row -->
+						</div>
+						<div class="tab-pane fade" id="done">
+							<div class="row">
+								<div class="container-fluid">
+									<div class="row-fluid">
+										<div class="span12">
+											<!--without js-->
+											<div id="toolbar3">
+											    <button id="remove" class="btn btn-default">删除</button>
+											</div>
+											<table id="doneTable">
+												<tbody>
+													<foreach name="doneOrder" item="v">
+													<tr>
+														<td></td>
+														<td>{$v.orderno}</td>
+														<td>{$v.orderType}{$v.orderMoney}</td>
+														<td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+														<td>{$v.orderPerson}{$v.orderSum}</td>
+														<td>{$v.orderTime}{$v.orderText}</td>
+														<td><button class="btn btn-link" data-toggle="modal" data-target="#myModal" >查看评价</button></td>					
+													</tr>
+													</foreach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div><!-- /.container-fluid-->
+							</div><!-- /.row -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- /#page-wrapper -->
+</div><!-- /#wrapper -->
+
+<a class="btt btn btn--plain hide-from-print" href="#" id="btt">Top <i class="icon icon--up"></i></a>
+    <script src="../Public/js/jquery.js"></script>
+    <script src="../Public/js/bootstrap.min.js"></script>
+    <script src="../Public/js/main.js?v=1"></script>
+    <script src="../Public/js/bootstrap-table.min.js"></script>
+    <script src-"../Public/js/common.js"></script>
+ <script>
+(function() {
+    var header = new Headroom(document.querySelector("#header"), {
+        tolerance: 5,
+        offset : 205,
+        classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+        }
+    });
+    header.init();
+
+    var bttHeadroom = new Headroom(document.getElementById("btt"), {
+        tolerance : 0,
+        offset : 500,
+        classes : {
+            initial : "slide",
+            pinned : "slide--reset",
+            unpinned : "slide--down"
+        }
+    });
+    bttHeadroom.init();
+}());
+</script>
+<script type="text/javascript">
+
+	var deliverWaitURL = "{:U('')}";//确认订单
+	var deleteWaitURL = "{:U('')}";//取消订单
+	var deleteDoneURL = "{:U('')}";//删除订单
+
+	//删除一行数据
+    function remove()
+ 	{
+    	var orderNos = $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.goodid;
+        });
+        //alert(row.orderNos);
+        $table.bootstrapTable('remove', {
+                field: 'orderNo',
+                values: orderNo
+        });
+        return orderNos;
+	}
+
+
+	/* 
+	 * Onroad table  
+	 * 待发货订单
+	 */
+
+
+ 	$(function () {
+ 		//1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+ 
+        //2.初始化Button的点击事件
+         var oButtonInit = new ButtonInit();
+        oButtonInit.Init(); 
+
+        /*确认发货*/
+        var $table = $('#waitTable');
+	    var deliver = $('#deliverOrder');
+ 		$deliver.click(function() {
+	   		if(confirm("确认发货？"))
+	   		{
+	   			var ids = remove();
+	   			send(deliverWaitURL,ids);
+	   		}
+		});
+
+ 		/*  删除订单  */
+ 		var deleteWaitOrder = $('#deleteOrder');
+ 		$deleteWaitOrder.click(function() {
+	   		if(confirm("确认取消该订单？"))
+	   		{
+	   			var ids = remove();
+	   			send(deleteWaitURL,ids);
+	   		}
+		});
+        
+    });
+
+	/* 
+	 * Onroad table  
+	 * 待收货订单
+	 */
+
+	/*
+	 * Done table
+	 * 已完成订单
+	 */
+	var $table = $('#doneTable');
+	/*  单个删除  */
+	window.operateEvents = {
+        'click .remove': function (e, value, row) {
+        	if(confirm("确认删除" + row.orderNo + "？"))
+        	{
+        		var ids=remove();
+        		send(deleteDoneURL,ids);
+        	}
+            //alert('删除订单' + row.orderNo + '？' + JSON.stringify(row));
+        }
+    };
+    /*  单个删除的图标  */
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+ 
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#doneTable').bootstrapTable({
+            	search: true,
+            	showRefresh:true,
+				showToggle:true,
+				showColumns:true,
+                toolbar: '#toolbar3',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 50,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: 460,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "orderNo",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                	field:'state',
+                	checkbox:true
+                },{
+                    field: 'orderNo',
+                    title: '订单号/时间'
+                }, {
+                    field: 'goodName',
+                    title: '货物(价格)'
+                }, {
+                    field: 'contactPerson',
+                    title: '联系人/配送地址'
+                }, {
+                    field: 'userNo',
+                    title: '下单人/总金额'
+                }, {
+                    field: 'orderText',
+                    title: '备注'
+                },{
+                    formatter:'operateFormatter',
+                    events:'operateEvents'
+                },]
+            });
+        };
+ 
+        //得到查询的参数
+	    oTableInit.queryParams = function (params) {
+	        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+	            limit: params.limit,   //页面大小
+	            offset: params.offset,  //页码
+	            /*sdate: $("#stratTime").val(),
+	            edate: $("#endTime").val(),
+	            sellerid: $("#sellerid").val(),
+	            orderid: $("#orderid").val(),
+	            CardNumber: $("#CardNumber").val(),
+	            maxrows: params.limit,
+	            pageindex:params.pageNumber,
+	            portid: $("#portid").val(),
+	            CardNumber: $("#CardNumber").val(),
+	            tradetype:$('input:radio[name="tradetype"]:checked').val(),
+	            success:$('input:radio[name="success"]:checked').val(),*/
+	        };
+	        return temp;
+	    };
+	    	return oTableInit;
+	};
+
+	/*  删除一行数据  */
+	$deleteDoneOrder = $('#remove');
+	$deleteDoneOrder.click(function () {
+        var orderNos=remove();
+        send(deleteDoneURL,orderNos);
+    });
+     
+</script>
+</body>
+</html>

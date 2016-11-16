@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>供货商——店铺</title>
+    <link rel="stylesheet" href="../Public/css/main.css?v=1" type="text/css">
+    <link href="../Public/css/bt.css"  rel="stylesheet">
+    <link href="../Public/css/bootstrap.css"  rel="stylesheet">
+</head>
+<body>
+<foreach name="GOOD" item="v">
+    <header id="header" class="header header--fixed hide-from-print" role="banner">
+        <div class="container" >
+            <nav id="nav" class="nav-wrapper" role="navigation" style="float:left">  
+                <a href="#" class="brand header__link">
+                    <img src="../Public/img/shop.jpg" class="img-circle">
+                    <b class="brand__forename">{$v.shopName}</b>
+                </a>   
+                <a class="header__link subdued" href="shopGood.html" style="position: relative;left:60%">
+                    <span aria-hidden="true" class="icon icon--github"></span>
+                    <span class="complimentary push--left">货物</span>
+                </a>                
+                <a class="header__link subdued" href="shopOrder.html" style="position: relative;left:80%">
+                    <span aria-hidden="true" class="icon icon--twitter"></span>
+                    <span class="complimentary push--left">订单</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <div class="col-lg-13">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Primary Panel
+            </div>
+            <br/>
+            <div class="panel-body">
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#{$v.goodNo}" data-toggle="tab">{$v.goodName}</a></li>
+                    </ul>
+                    <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane in active" id="{$v.goodNo}">
+                                <ul class="thumbnails">
+                                    <li class="span7">
+                                        <a href="#" class="thumbnail">
+                                          <img src="{$v.pic}" alt="">
+                                        </a>
+                                    </li>
+                                    <li class="span7">
+                                        <div class="span7"><br/>
+                                            <div class="thumbnail">
+                                                <h3>名称：{$v.goodName}</h3>
+                                                <h4>售价：￥{$v.price} rmb/kg</h4>
+                                                <h4>存货：{v.inventory} t</h4>
+                                                <h4>地址：{$v.shopAdress}</h4>
+                                                <div class="caption">
+                                                    <h3>{$v.shopName}{$v.shopNo}</h3>
+                                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.goodText}</p>
+                                                </div> 
+                                            </div>    
+                                        </div>
+                                  </li>
+                                </ul>   
+                        </div>
+                        <!-- <div class="tab-pane" id="lB">
+                          <p>板栗</p>
+                        </div>
+                        <div class="tab-pane" id="lC">
+                          <p>红薯</p>
+                        </div> -->
+                    </div>
+                    </div>
+                </div> <!-- /tabbable -->
+            </div>
+            <div class="panel-footer">
+                {$v.shopName}{$v.shopNo}
+            </div>
+            
+        </div>
+    </div>
+</foreach>
+
+    <a class="btt btn btn--plain hide-from-print" href="#" id="btt">Top <i class="icon icon--up"></i></a>
+    <script src="../Public/js/jquery.js"></script>
+    <script src="../Public/js/bootstrap.min.js"></script>
+    <script src="../Public/js/main.js?v=1"></script>
+ 
+<script>
+(function() {
+    var header = new Headroom(document.querySelector("#header"), {
+        tolerance: 5,
+        offset : 205,
+        classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+        }
+    });
+    header.init();
+
+    var bttHeadroom = new Headroom(document.getElementById("btt"), {
+        tolerance : 0,
+        offset : 500,
+        classes : {
+            initial : "slide",
+            pinned : "slide--reset",
+            unpinned : "slide--down"
+        }
+    });
+    bttHeadroom.init();
+}());
+</script>
+
+</body>
+</html>

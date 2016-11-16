@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>用户——产品</title>
+    <link rel="stylesheet" href="../Public/css/main.css?v=1" type="text/css">
+    <link href="../Public/css/bootstrap.css"  rel="stylesheet">
+    <link rel="stylesheet" href="../Public/css/bootstrap-table.css">
+    <link href="../Public/css/nav_tab.css"  rel="stylesheet">
+    <link href="bootstrap-editable.css"  rel="stylesheet">
+</head>
+<body>
+    <header id="header" class="header header--fixed hide-from-print" role="banner">
+        <div class="container" >
+            <nav id="nav" class="nav-wrapper" role="navigation" style="float:left">  
+                <a href="#" class="brand header__link">
+                    <img src="shop.jpg" class="img-circle">
+                    <b class="brand__forename">{$v.userName}</b>
+                </a>   
+                <a class="header__link subdued" href="userGood.html" style="position: relative;left:60%">
+                    <span aria-hidden="true" class="icon icon--github"></span>
+                    <span class="complimentary push--left">货物</span>
+                </a>                
+                <a class="header__link subdued" href="userOrder.html" style="position: relative;left:80%">
+                    <span aria-hidden="true" class="icon icon--twitter"></span>
+                    <span class="complimentary push--left">订单</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <div class="col-lg-13">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Primary Panel
+            </div>
+            <br/>
+            <div class="panel-body">
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#{$v.goodNo}" data-toggle="tab">{$v.goodName}</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane in active" id="lA">
+                            <div class="col-lg-12">
+                                <div id="toolbar" class="btn-group">
+                                    <button id="delivery" type="button" class="btn btn-default">
+                                        <span class="fa fa-check" aria-hidden="true">去购物车结算</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- <div class="row"> -->
+                            <div class="container-fluid">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <!--without js-->
+                                        <table id="table">
+                                            <tbody>
+                                                <foreach name="good" item="v">
+                                                <tr>
+                                                <td></td>
+                                                <td><button  class="btn btn-link" data-toggle="modal" data-target="#myModal{$v.shopNo}"><input value="{$v.shopNo}" style="display:none;"></input>{$v.shopNo}{$v.shopName}</button>
+                                                <!-- <div class="modal fade" id="myModal{$v.shopNo}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{$v.shopNo}" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button{$v.shopNo}" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title" id="myModalLabel{$v.shopNo}">{$v.shopNo}</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="thumbnails">
+                                                                    <a class="thumbnail">
+                                                                        <h3>名称：{$v.shopName}</h3>
+                                                                        <h4>售价：￥{$v.price} rmb/kg</h4>
+                                                                        <h4>存货：{$v.sum} t</h4>
+                                                                        <h4>地址：{$v.shopAdress}</h4>
+                                                                        <div class="caption">
+                                                                            <h3>{$v.shopNo}{$v.shopName}</h3>
+                                                                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$v.goodText}</p>
+                                                                        </div> 
+                                                                    </a>    
+                                                                </div>
+                                                                <a href="#" class="thumbnail">
+                                                                  <img src="大米.jpg" alt="">
+                                                                </a>
+                                                            </div>
+                                                        </div>/.modal-content
+                                                    </div>/.modal-dialog
+                                                </div> --><!-- /.modal -->
+                                                </td><!-- Modal -->
+                                                <td>{$v.price}/kg</td>
+                                                <td>{$v.sum}/t</td>
+                                                <td>{$v.shopAdress}</td>
+                                                <td>{$v.shopText}</td>
+                                                <td>q</td>
+                                                </tr>
+                                                </foreach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div><!-- /.container-fluid-->
+                            <!-- </div> --><!-- /.row -->
+                        </div>
+                    </div>
+                </div> <!-- /tabbable -->
+            </div>
+            <div class="panel-footer">
+                Panel Footer
+            </div>
+        </div>
+    </div>
+
+    <a class="btt btn btn--plain hide-from-print" href="#" id="btt">Top <i class="icon icon--up"></i></a>
+    <script src="../Public/js/jquery.js"></script>
+    <script src="../Public/js/bootstrap.min.js"></script>
+    <script src="../Public/js/main.js?v=1"></script>
+    <script src="../Public/js/bootstrap-table.min.js"></script>
+    <script src="bootstrap-table-editable.js"></script>
+    <script src="../Public/js/common.js"></script>
+<script>
+(function() {
+    var header = new Headroom(document.querySelector("#header"), {
+        tolerance: 5,
+        offset : 205,
+        classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+        }
+    });
+    header.init();
+
+    var bttHeadroom = new Headroom(document.getElementById("btt"), {
+        tolerance : 0,
+        offset : 500,
+        classes : {
+            initial : "slide",
+            pinned : "slide--reset",
+            unpinned : "slide--down"
+        }
+    });
+    bttHeadroom.init();
+}());
+</script>
+<script type="text/javascript">
+    $(function () {
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+ 
+        //2.初始化Button的点击事件
+         var oButtonInit = new ButtonInit();
+        oButtonInit.Init(); 
+
+        
+    });
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#table').bootstrapTable({
+                search: true,
+                showRefresh:true,
+                showToggle:true,
+                showColumns:true,
+                toolbar: '#toolbar3',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 50,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: 460,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "shopNo",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    field:'state',
+                    checkbox:true
+                },{
+                    field: 'shopNo',
+                    title: '供货商'
+                }, {
+                    field: 'price',
+                    title: '价格'
+                }, {
+                    field: 'contactPerson',
+                    title: '库存'
+                }, {
+                    field: 'userNo',
+                    title: '地址'
+                }, {
+                    field: 'orderText',
+                    title: '备注',
+                },{
+                    field:'cart',
+                    title:'购物车',
+                    editable:true
+                }]
+            });
+        };
+ 
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                
+            };
+            return temp;
+        };
+            return oTableInit;
+    };
+</script>
+</body>
+</html>
