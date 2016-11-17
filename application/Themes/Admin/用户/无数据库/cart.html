@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>cart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../Public/css/main.css?v=1" type="text/css">
+<link href="css/bootstrap.css"  rel="stylesheet">
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+<!-- <link href="css/font.css" rel="stylesheet" type="text/css" media="all" /> -->
+<script src="../Public/js/jquery.min.js"></script>
+<script src="../Public/js/bootstrap.min.js"></script>
+<script src="../Public/js/main.js?v=1"></script>
+<script src="js/simpleCart.min.js"> </script>
+<script type="text/javascript" src="js/memenu.js"></script>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script>$(document).ready(function(){$(".memenu").memenu();});</script>	
+<!-- //check out -->
+<script src="../Public/js/common.js"></script>
+</head>
+<body>
+<!-- header -->
+<div class="header-top">
+	<header id="header" class="header header--fixed hide-from-print" role="banner">
+        <div class="container" >
+            <nav id="nav" class="nav-wrapper" role="navigation" style="position: relative;left:9%">  
+                <a href="#" class="brand header__link">
+                    <img src="shop.jpg" class="img-circle">
+                    <b class="brand__forename">{$v.userName}</b>
+                </a>   
+                <a class="header__link" href="userGood.html" style="position: relative;left:30%">
+                    <span aria-hidden="true" class="icon icon--github">货物</span>
+                </a>                
+                <a class="header__link" href="userOrder.html" style="position: relative;left:40%">
+                    <span aria-hidden="true" class="icon icon--twitter">订单</span>
+                </a>
+                <a class="header__link" href="userOrder.html" style="position: relative;left:50%">
+                    <div class="total">
+						<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span>)
+					</div>
+					<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">购物车</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <br/>
+	<div class="header-bottom">	
+		<div class="cart box_1">
+		 	<div class="clearfix"> </div>
+		</div>
+		<div class="clearfix"> </div>
+		<!---->			 
+	</div>
+	<div class="clearfix"> </div>
+</div>
+
+<!-- check out -->
+<div class="container">
+	<div class="check-sec">	 
+		<div class="col-md-3 cart-total">
+			<a class="continue" href="userGood.html" target="_blank">继续购物</a>
+			<div class="price-details">
+				<h3>价格明细</h3>
+				<span>价格</span>
+				<span class="total1">6200</span>
+				<span>折扣</span>
+				<span class="total1">10%</span>
+				<span>用券</span>
+				<span class="total1">-150.00</span>
+				<div class="clearfix"></div>				 
+			</div>	
+			<ul class="total_price">
+			   <li class="last_price"> <h4>总计</h4></li>	
+			   <li class="last_price"><span>6150.00</span></li>			   
+			</ul> 
+			<div class="clearfix"></div>
+			<div class="clearfix"></div>
+			<a class="order" href="#">结算</a>
+			<!-- <div class="total-item">
+				<h3>OPTIONS</h3>
+				<h4>COUPONS</h4>
+				<a class="cpns" href="#">Apply Coupons</a>
+			</div> -->
+		</div>
+		<div class="col-md-9 cart-items">
+			<h1>购物车 (2)</h1>
+			<script>
+				$(document).ready(function(c) {
+					$('.close1').on('click', function(c){
+						$('.cart-header1').fadeOut('slow', function(c){
+							$('.cart-header1').remove();
+							var postData="";
+							postData="&cartNo" + {$v.cartNo};
+							$.ajax({
+			                    type: "POST",
+			                    url: "{:U('')}",
+			                    data:postData,
+			                    success: function (data, status) {
+			                        if (status == "SUCCESS") {
+			                            alert("删除成功");
+			                        }
+			                        else if(status == "FAIL"){
+			                        	alert("请重试！");
+			                        }
+			                    },
+			                    error: function () {
+			                        alert("Error");
+			                    },
+			                    complete: function () {
+			                    }
+			                });
+						});
+					});	  
+				});
+			</script>
+			<div class="cart-header1" style="position: relative;">
+				<div class="panel panel-default">
+					<div class="close1"></div>
+					<div class="cart-item cyc">
+						<img src="../Public/images/1.jpg" class="img-responsive" alt=""/>
+					</div>
+				   	<div class="cart-item-info">
+					    <h3><a href="">大米</a><span>供货商: 001</span></h3>
+						<ul class="qty">
+							<li><p>单价 : ￥50 rmb/kg</p></li>
+							<li><p>数量 :<input type="text" value="aaa" onFocus="edit(value);" onBlur="getValue(value);"/>kg</p></li>
+							<li><p>总价 : rmb.100.00</p></li>
+						</ul>						
+				   	</div>
+			   		<div class="clearfix"></div>	
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+			<script>
+				$(document).ready(function(c) {
+					$('.close2').on('click', function(c){
+						$('.cart-header2').fadeOut('slow', function(c){
+							$('.cart-header2').remove();
+						});
+					});	  
+				});
+			</script>
+			<div class="cart-header2"  style="position: relative;">
+				<div class="panel panel-default">
+					<div class="close2"></div>
+					<div class="cart-item cyc">
+						<img src="../Public/images/2.jpg" class="img-responsive" alt=""/>
+					</div>
+				   	<div class="cart-item-info">
+					    <h3><a href="">板栗</a><span>供货商: 001</span></h3>
+						<ul class="qty">
+							<li><p>单价 : ￥50 rmb/kg</p></li>
+							<li><p>数量 : 1 t</p></li>
+							<li><p>总价 : rmb.100.00</p></li>
+						</ul>						
+				   	</div>
+			   		<div class="clearfix"></div>	
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+
+<script>
+	(function() {
+	    var header = new Headroom(document.querySelector("#header"), {
+	        tolerance: 5,
+	        offset : 205,
+	        classes: {
+	          initial: "animated",
+	          pinned: "slideDown",
+	          unpinned: "slideUp"
+	        }
+	    });
+	    header.init();
+
+	    var bttHeadroom = new Headroom(document.getElementById("btt"), {
+	        tolerance : 0,
+	        offset : 500,
+	        classes : {
+	            initial : "slide",
+	            pinned : "slide--reset",
+	            unpinned : "slide--down"
+	        }
+	    });
+	    bttHeadroom.init();
+	}());
+</script>
+<script type="text/javascript">
+	var sum=0;
+	function edit(value){
+		sum=value;
+		//"if(value==defaultValue){value='';}" 
+	}
+	function getValue(value){
+		if(sum!=value)
+		{
+			console.log(value);
+			send(alterCartURL,cartNo);
+		}
+	}
+</script>
+</body>
+</html>

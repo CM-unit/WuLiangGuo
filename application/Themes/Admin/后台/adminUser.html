@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>后台</title>
+    <link rel="stylesheet" href="../Public/css/main.css?v=1" type="text/css">
+    <link href="../Public/css/bootstrap.css"  rel="stylesheet">
+    <link rel="stylesheet" href="../Public/css/bootstrap-table.css">
+    <link href="../Public/css/nav_tab.css"  rel="stylesheet">
+</head>
+<body>
+    <header id="header" class="header header--fixed hide-from-print" role="banner">
+        <div class="container" >
+            <nav id="nav" class="nav-wrapper" role="navigation" style="float:left">  
+                <a href="#" class="brand header__link">
+                    <img src="shop.jpg" class="img-circle">
+                    <b class="brand__forename">{$v.adminName}</b>
+                </a>   
+                <a class="header__link subdued" href="adminOrder.html" style="position: relative;left:60%">
+                    <span aria-hidden="true" class="icon icon--github"></span>
+                    <span class="complimentary push--left">订单</span>
+                </a>                
+                <a class="header__link subdued" href="adminUser.html" style="position: relative;left:80%">
+                    <span aria-hidden="true" class="icon icon--twitter"></span>
+                    <span class="complimentary push--left">用户</span>
+                </a>
+                <a class="header__link subdued" href="adminShop.html" style="position: relative;left:100%">
+                    <span aria-hidden="true" class="icon icon--twitter"></span>
+                    <span class="complimentary push--left">供货商</span>
+                </a>
+                <a class="header__link subdued" href="adminGood.html" style="position: relative;left:120%">
+                    <span aria-hidden="true" class="icon icon--twitter"></span>
+                    <span class="complimentary push--left">产品</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <div class="col-lg-13">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                用户信息列表
+            </div>
+            <br/>
+            <div class="panel-body">
+                <div class="panel-footer">
+                    <h3>用户信息列表</h3>
+                </div>
+                <table 
+                    data-pagination="true"
+                    data-search="true"
+                    data-show-refresh="true"
+                    data-show-toggle="true"
+                    data-show-columns="true"
+                    data-query-params="queryParams"
+                    data-response-handler="responseHandler"
+                    data-toggle="table"
+                    id="table"
+                    data-toolbar="#toolbar"
+                    class="table table-bordered"
+                    data-click-to-select="true">
+                    <thead>
+                        <tr>
+                            <!-- <th data-field="state" data-checkbox="true"></th> -->
+                            <th data-field="id" id="priceFormatter">id</th>
+                            <th data-field="phone">电话</th>
+                            <th data-field="address">地址</th>
+                            <th data-field="money">消费</th>
+                            <th data-field="oeder">订单</th>
+                            <th data-field="text">备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <foreach name="good" item="v">
+                        <tr>
+                            <td>{$v.userNo}{$v.userName}</td>
+                            <td>{$v.phone}</td>
+                            <td>{$v.address}</td>
+                            <td>{$v.orderMoney}</td>
+                            <td>
+                                <button class="btn btn-link" type="button" data-toggle="modal" data-target="#modalTable">详情</button>                  
+                                <!-- 评价模态框（Modal） -->
+                                <div class="modal fade" id="modalTable" tabindex="-1" role="dialog" 
+                                   aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog"  style="width:60%;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" 
+                                                   data-dismiss="modal" aria-hidden="true">
+                                                      &times;
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                   {$v.userNo}{$v.userName}
+                                                </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="tabbable">
+                                                    <ul class="nav nav-tabs">
+                                                        <li class="active"><a href="#lA" data-toggle="tab">待发货</a></li>
+                                                        <li><a href="#lB" data-toggle="tab">待收货</a></li>
+                                                        <li><a href="#lC" data-toggle="tab">已完成</a></li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="lA">
+                                                            <br/>
+                                                            <table id="order_table1"
+                                                                   data-toggle="table"
+                                                                   data-height="299">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th data-field="orderNo">订单号/时间</th>
+                                                                    <th data-field="orderName">货物(价格)</th>
+                                                                    <th data-field="contacrPerson">联系人/配送地址</th>
+                                                                    <th data-field="userNo">下单人/总金额</th>
+                                                                    <th data-field="orderText">备注</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <foreach name="waitOrder" item="v">
+                                                                    <tr>
+                                                                        <td>{$v.orderno}{$v.orderTime}</td>
+                                                                        <td>{$v.orderType}{$v.orderMoney}</td>
+                                                                        <td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+                                                                        <td>{$v.orderPerson}{$v.orderSum}</td>
+                                                                        <td>{$v.orderText}</td>
+                                                                    </tr>
+                                                                    </foreach>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="tab-pane" id="lB">
+                                                            <br/>
+                                                            <table id="order_table2"
+                                                                   data-toggle="table"
+                                                                   data-height="299">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th data-field="orderNo">订单号/时间</th>
+                                                                    <th data-field="orderName">货物(价格)</th>
+                                                                    <th data-field="contacrPerson">联系人/配送地址</th>
+                                                                    <th data-field="userNo">下单人/总金额</th>
+                                                                    <th data-field="orderText">备注</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <foreach name="waitOrder" item="v">
+                                                                    <tr>
+                                                                        <td>{$v.orderno}{$v.orderTime}</td>
+                                                                        <td>{$v.orderType}{$v.orderMoney}</td>
+                                                                        <td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+                                                                        <td>{$v.orderPerson}{$v.orderSum}</td>
+                                                                        <td>{$v.orderText}</td>
+                                                                    </tr>
+                                                                    </foreach>
+                                                                </tbody>   
+                                                            </table>
+                                                        </div>
+                                                        <div class="tab-pane" id="lC">
+                                                            <br/>
+                                                            <table id="order_table3"
+                                                                   data-toggle="table"
+                                                                   data-height="299">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th data-field="orderNo">订单号/时间</th>
+                                                                    <th data-field="orderName">货物(价格)</th>
+                                                                    <th data-field="contacrPerson">联系人/配送地址</th>
+                                                                    <th data-field="userNo">下单人/总金额</th>
+                                                                    <th data-field="orderText">备注</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <foreach name="waitOrder" item="v">
+                                                                    <tr>
+                                                                        <td>{$v.orderno}{$v.orderTime}</td>
+                                                                        <td>{$v.orderType}{$v.orderMoney}</td>
+                                                                        <td>{$v.contactPerson}{$v.contactPhone}{$v.distributeAddresss}{$v.distributeTime}</td>
+                                                                        <td>{$v.orderPerson}{$v.orderSum}</td>
+                                                                        <td>{$v.orderText}</td>
+                                                                    </tr>
+                                                                    </foreach>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div>
+                                </div><!-- /.modal -->      
+                            </td> 
+                            <td>{$v.orderText}</td>
+                        </tr>
+                        </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                Panel Footer
+            </div>
+        </div>
+    </div>
+
+    <a class="btt btn btn--plain hide-from-print" href="#" id="btt">Top <i class="icon icon--up"></i></a>
+    <script src="../Public/js/jquery.js"></script>
+    <script src="../Public/js/bootstrap.min.js"></script>
+    <script src="../Public/js/main.js?v=1"></script>
+    <script src="../Public/js/bootstrap-table.min.js"></script>
+<script>
+(function() {
+    var header = new Headroom(document.querySelector("#header"), {
+        tolerance: 5,
+        offset : 205,
+        classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+        }
+    });
+    header.init();
+
+    var bttHeadroom = new Headroom(document.getElementById("btt"), {
+        tolerance : 0,
+        offset : 500,
+        classes : {
+            initial : "slide",
+            pinned : "slide--reset",
+            unpinned : "slide--down"
+        }
+    });
+    bttHeadroom.init();
+}());
+</script>
+
+</body>
+</html>
